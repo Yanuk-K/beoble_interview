@@ -205,12 +205,26 @@ function InfoCard() {
                   >
                     <Grid item xs>
                       <Paper elevation={2}>
-                        <Typography style={{ wordWrap: 'break-word' }}>
+                        <Typography
+                          style={{
+                            width: '300px',
+                            wordWrap: 'break-word',
+                            display: 'inline-block',
+                          }}
+                        >
                           Signed Hash: {hash}
                         </Typography>
                       </Paper>
+                    </Grid>
+                    <Grid item xs>
                       <Paper elevation={2}>
-                        <Typography style={{ wordWrap: 'break-word' }}>
+                        <Typography
+                          style={{
+                            width: '300px',
+                            wordWrap: 'break-word',
+                            display: 'inline-block',
+                          }}
+                        >
                           Public Key of Signer: {publicKey}
                         </Typography>
                       </Paper>
