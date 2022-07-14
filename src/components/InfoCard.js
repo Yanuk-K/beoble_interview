@@ -6,6 +6,7 @@ import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
+import TextField from '@mui/material/TextField'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
@@ -22,6 +23,7 @@ function InfoCard() {
   const [accountBalance, setAccountBalance] = useState('')
   const [publicKey, setPublicKey] = useState('')
   const [hash, setHash] = useState('')
+  const [message, setMessage] = useState('')
   const NULL_ADDRESS = 0x0000000000000000000000000000000000000000
 
   const checkIfWalletIsConnected = async () => {
@@ -97,7 +99,7 @@ function InfoCard() {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
 
-    const rawSig = await signer.signMessage('Hi')
+    const rawSig = await signer.signMessage(message)
     const signerPublicKey = await signer.getAddress()
 
     setHash(rawSig)
@@ -112,19 +114,37 @@ function InfoCard() {
   return (
     <div className="d-flex">
       <Card
-        sx={{ display: 'flex', width: '70%', height: '70%' }}
+        sx={{
+          display: 'flex',
+          width: '70%',
+          height: '70%',
+          borderRadius: '32px',
+        }}
         className="center"
       >
         <div className="center">
           {!currentAccount && (
             <Box display="flex" alignItems="center">
-              <Button
-                variant="contained"
-                sx={{ borderRadius: 28, border: 1, borderColor: '#A7A5C6' }}
-                onClick={connectWallet}
+              <Grid
+                container
+                spacing={3}
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
               >
-                Connect Wallet
-              </Button>
+                <Grid item xs>
+                  <Typography variant="h2">beoble Frontend Task</Typography>
+                </Grid>
+                <Grid item xs>
+                  <Button
+                    variant="contained"
+                    sx={{ borderRadius: 28, border: 1, borderColor: '#A7A5C6' }}
+                    onClick={connectWallet}
+                  >
+                    Connect Wallet
+                  </Button>
+                </Grid>
+              </Grid>
             </Box>
           )}
           {currentAccount && (
@@ -184,7 +204,7 @@ function InfoCard() {
                 >
                   <Grid
                     container
-                    spacing={2}
+                    spacing={1}
                     direction="row"
                     justifyContent="center"
                     alignItems="center"
@@ -205,17 +225,35 @@ function InfoCard() {
                       </Tooltip>
                     </Grid>
                     <Grid item xs>
-                      <Button
-                        variant="contained"
-                        sx={{
-                          borderRadius: 28,
-                          border: 1,
-                          borderColor: '#A7A5C6',
-                        }}
-                        onClick={signMessage}
+                      <Grid
+                        container
+                        spacing={1}
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
                       >
-                        Sign Message
-                      </Button>
+                        <Grid item xs>
+                          <TextField
+                            required
+                            onChange={(e) => setMessage(e.target.value)}
+                            value={message}
+                            placeholder="Message to Sign"
+                          ></TextField>
+                        </Grid>
+                        <Grid item xs>
+                          <Button
+                            variant="contained"
+                            sx={{
+                              borderRadius: 28,
+                              border: 1,
+                              borderColor: '#A7A5C6',
+                            }}
+                            onClick={signMessage}
+                          >
+                            Sign Message
+                          </Button>
+                        </Grid>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Box>
