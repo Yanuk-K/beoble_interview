@@ -71,13 +71,25 @@ function InfoCard() {
   const getAccountData = async (account) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const network = await provider.getNetwork()
-    const ENS = await provider.lookupAddress(account)
-    const avatar = await provider.getAvatar(ENSAddress)
     const balance = await provider.getBalance(account)
 
+    if (
+      network.chainId === '1' ||
+      network.chainId === '3' ||
+      network.chainId === '4' ||
+      network.chainId === '5'
+    ) {
+      const ENS = await provider.lookupAddress(account)
+      const avatar = await provider.getAvatar(ENSAddress)
+
+      ENS ? setENSAddress(ENS) : setENSAddress(NULL_ADDRESS)
+      avatar ? setENSAvatar(avatar) : setENSAvatar('')
+    } else {
+      setENSAddress(NULL_ADDRESS)
+      setENSAvatar('')
+    }
+
     setCurrentChainId(network.chainId)
-    ENS ? setENSAddress(ENS) : setENSAddress(NULL_ADDRESS)
-    avatar ? setENSAvatar(avatar) : setENSAvatar('')
     setAccountBalance(ethers.utils.formatEther(balance))
   }
 
