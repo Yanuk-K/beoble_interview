@@ -17,6 +17,8 @@ function Card() {
   const [ENSAddress, setENSAddress] = useState('')
   const [ENSAvatar, setENSAvatar] = useState('')
   const [accountBalance, setAccountBalance] = useState('')
+  const [publicKey, setPublicKey] = useState('')
+  const [hash, setHash] = useState('')
   const NULL_ADDRESS = 0x0000000000000000000000000000000000000000
 
   const checkIfWalletIsConnected = async () => {
@@ -67,6 +69,13 @@ function Card() {
     ENS ? setENSAddress(ENS) : setENSAddress(NULL_ADDRESS)
     avatar ? setENSAvatar(avatar) : setENSAvatar('')
     setAccountBalance(ethers.utils.formatEther(balance))
+  }
+
+  const signMessage = async (message) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+
+    const rawSig = await signer.signMessage(message)
   }
 
   useEffect(() => {
