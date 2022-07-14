@@ -54,10 +54,17 @@ function InfoCard() {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const accounts = await provider.send('eth_requestAccounts', [])
     setCurrentAccount(accounts[0])
+    getAccountData(accounts[0])
   }
 
   const disconnectWallet = async () => {
     setCurrentAccount('')
+    setCurrentChainId('')
+    setENSAddress('')
+    setENSAvatar('')
+    setAccountBalance('')
+    setPublicKey('')
+    setHash('')
     console.log('Disconnected')
   }
 
@@ -157,7 +164,12 @@ function InfoCard() {
                   </Grid>
                 </Grid>
 
-                <Box display="flex" alignItems="center" flexDirection="row">
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  flexDirection="row"
+                  className="buttonPadding"
+                >
                   <Grid
                     container
                     spacing={2}

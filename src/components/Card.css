@@ -7,3 +7,7 @@
     margin: 0 auto;
     align-self: center;
 }
+
+.buttonPadding {
+    padding: 20px;
+}
