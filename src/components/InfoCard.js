@@ -10,6 +10,7 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+import Paper from '@mui/material/Paper'
 import { ethers } from 'ethers'
 import './Card.css'
 
@@ -96,51 +97,75 @@ function InfoCard() {
         className="center"
       >
         <div className="center">
-          <Grid container spacing={2}>
-            {!currentAccount && (
-              <Box display="flex" alignItems="center">
-                <Button
-                  variant="contained"
-                  sx={{ borderRadius: 28, border: 1, borderColor: '#A7A5C6' }}
-                  onClick={connectWallet}
+          {!currentAccount && (
+            <Box display="flex" alignItems="center">
+              <Button
+                variant="contained"
+                sx={{ borderRadius: 28, border: 1, borderColor: '#A7A5C6' }}
+                onClick={connectWallet}
+              >
+                Connect Wallet
+              </Button>
+            </Box>
+          )}
+          {currentAccount && (
+            <Box>
+              <Box display="flex" alignItems="center" flexDirection="column">
+                <Grid
+                  container
+                  spacing={2}
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
                 >
-                  Connect Wallet
-                </Button>
-              </Box>
-            )}
-            {currentAccount && (
-              <Box>
-                <Box display="flex" alignItems="center" flexDirection="column">
-                  <Grid item>
-                    <Typography variant="body1">
-                      Connected Chain ID: <>{currentChainId}</>
-                    </Typography>
+                  <Grid item xs>
+                    <Paper elevation={2}>
+                      <Typography variant="body1">
+                        Connected Chain ID: <>{currentChainId}</>
+                      </Typography>
+                    </Paper>
                   </Grid>
                   {ENSAddress != NULL_ADDRESS && (
                     <Box>
-                      <Grid item>
-                        <Avatar src={ENSAvatar} />
+                      <Grid item xs>
+                        <Paper elevation={2}>
+                          <Avatar src={ENSAvatar} />
+                        </Paper>
                       </Grid>
-                      <Grid item>
-                        <Typography variant="body1">
-                          <>{ENSAddress}</>
-                        </Typography>
+                      <Grid item xs>
+                        <Paper elevation={2}>
+                          <Typography variant="body1">
+                            <>{ENSAddress}</>
+                          </Typography>
+                        </Paper>
                       </Grid>
                     </Box>
                   )}
-                  <Grid item>
-                    <Typography variant="body1">
-                      <>{currentAccount}</>
-                    </Typography>
+                  <Grid item xs>
+                    <Paper elevation={2}>
+                      <Typography variant="body1">
+                        <>{currentAccount}</>
+                      </Typography>
+                    </Paper>
                   </Grid>
-                  <Grid item>
-                    <Typography variant="body1">
-                      Balance: <>{accountBalance}</> ETH
-                    </Typography>
+                  <Grid item xs>
+                    <Paper elevation={2}>
+                      <Typography variant="body1">
+                        Balance: <>{accountBalance}</> ETH
+                      </Typography>
+                    </Paper>
                   </Grid>
+                </Grid>
 
-                  <Box display="flex" alignItems="center" flexDirection="row">
-                    <Grid item>
+                <Box display="flex" alignItems="center" flexDirection="row">
+                  <Grid
+                    container
+                    spacing={2}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Grid item xs>
                       <Tooltip title="Disconnect" arrow>
                         <Button
                           variant="contained"
@@ -155,7 +180,7 @@ function InfoCard() {
                         </Button>
                       </Tooltip>
                     </Grid>
-                    <Grid item>
+                    <Grid item xs>
                       <Button
                         variant="contained"
                         sx={{
@@ -168,21 +193,33 @@ function InfoCard() {
                         Sign Message
                       </Button>
                     </Grid>
-                  </Box>
-                  {hash && (
-                    <Grid item xs={4}>
-                      <Typography style={{ wordWrap: 'break-word' }}>
-                        Signed Hash: {hash}
-                      </Typography>
-                      <Typography style={{ wordWrap: 'break-word' }}>
-                        Public Key of Signer: {publicKey}
-                      </Typography>
-                    </Grid>
-                  )}
+                  </Grid>
                 </Box>
+                {hash && (
+                  <Grid
+                    container
+                    spacing={2}
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Grid item xs>
+                      <Paper elevation={2}>
+                        <Typography style={{ wordWrap: 'break-word' }}>
+                          Signed Hash: {hash}
+                        </Typography>
+                      </Paper>
+                      <Paper elevation={2}>
+                        <Typography style={{ wordWrap: 'break-word' }}>
+                          Public Key of Signer: {publicKey}
+                        </Typography>
+                      </Paper>
+                    </Grid>
+                  </Grid>
+                )}
               </Box>
-            )}
-          </Grid>
+            </Box>
+          )}
         </div>
       </Card>
     </div>
